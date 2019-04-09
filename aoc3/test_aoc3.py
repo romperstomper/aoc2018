@@ -23,6 +23,10 @@ class Testaoc3(unittest.TestCase):
         z = aoc3.readinput().pop()
         self.assertEqual(aoc3.gen_cords(z), EXPECTED)
 
+    @unittest.skip
     def test_ddict(self):
         self.assertEqual(aoc3.ddict(), None)
+
+    def test_leftover(self):
+        self.assertEqual(aoc3.leftover(), None)
 

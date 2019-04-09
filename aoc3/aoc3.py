@@ -28,3 +28,17 @@ def gen_cords():
 def ddict():
     c = Counter(gen_cords())
     res=(Counter(el for el in c.elements() if c[el] > 1))
+
+def leftover():
+    c = Counter(gen_cords())
+    res=(Counter(el for el in c.elements() if c[el] ==1))
+    for n, line in enumerate(cords()):
+        print('number is: %s' % (n+1))
+        (x,y),(i,j)=line
+        coords = [(a, k) for a in range(x, x+i) for k in range(y, y+j)]
+        if set(coords).issubset(res):
+            print('\n')
+            print(line)
+            print('\n')
+            break
+
