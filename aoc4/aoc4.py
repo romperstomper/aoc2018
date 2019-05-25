@@ -1,13 +1,15 @@
 from datetime import datetime
 
-def order():
-    lines = [
-        "[1518-11-22 00:49] wakes up",
-        "[1518-05-18 00:01] Guard #1171 begins shift",
-        "[1518-11-20 00:28] wakes up",
-        "[1518-10-27 00:37] wakes up"
-    ]
-    dates = [datetime.strptime(x[1:17], '%Y-%m-%d %H:%M') for x in lines]
+def readinput():
+    with open('input') as fd:
+        data = fd.read().splitlines()
+    data.sort(key=lambda x: datetime.strptime(x[1:17], '%Y-%m-%d %H:%M'))
+    return data
 
+
+def order():
+    "[1518-05-18 00:01] Guard #1171 begins shift"
+    lines = readinput()
     return sorted(dates)
 
+print(readinput())

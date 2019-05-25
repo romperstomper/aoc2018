@@ -2,6 +2,7 @@ import aoc4
 import unittest
 
 class Testaoc4(unittest.TestCase):
+  "[1518-05-18 00:01] Guard #1171 begins shift"
   def test1(self):
     dates = [
         "[1518-11-22 00:49]",
