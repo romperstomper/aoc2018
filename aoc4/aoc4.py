@@ -1,4 +1,5 @@
 from datetime import datetime
+import re
 
 def readinput():
     with open('input') as fd:
@@ -7,9 +8,9 @@ def readinput():
     return data
 
 
-def order():
+def count():
     "[1518-05-18 00:01] Guard #1171 begins shift"
     lines = readinput()
-    return sorted(dates)
+    re.search(r'Guard #(\d+)', lines[0])
 
-print(readinput())
+print(count())
