@@ -1,5 +1,7 @@
 from datetime import datetime
 import re
+import pdb
+from collections import defaultdict
 
 def readinput():
     with open('input') as fd:
@@ -8,9 +10,17 @@ def readinput():
     return data
 
 
-def count():
-    "[1518-05-18 00:01] Guard #1171 begins shift"
+def create_guards():
+    guards = {}
     lines = readinput()
-    re.search(r'Guard #(\d+)', lines[0])
+    for line in lines:
+        match = re.search(r'Guard #(\d+)', line)
+        if match:
+            if match.group(1) in guards:
+                continue
+            else:
+                guards[match.group(1)] = {k:0 for k in range(60)}
+    return guards
 
-print(count())
+#print(count())
+print(create_guards().keys())

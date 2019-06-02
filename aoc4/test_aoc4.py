@@ -2,17 +2,16 @@ import aoc4
 import unittest
 
 class Testaoc4(unittest.TestCase):
-  "[1518-05-18 00:01] Guard #1171 begins shift"
   def test1(self):
-    dates = [
-        "[1518-11-22 00:49]",
-        "[1518-05-18 00:01]",
-        "[1518-11-20 00:28]",
-        "[1518-10-27 00:37]"
-    ]
-    dates = [aoc4.datetime.strptime(x[1:17], '%Y-%m-%d %H:%M') for x in dates]
-    dates.sort()
-    self.assertEqual(aoc4.order(), dates)
+    expected = [
+        '[1518-03-07 00:02] Guard #1291 begins shift', 
+        '[1518-03-07 00:19] falls asleep'
+        ]
+    self.assertEqual(aoc4.readinput()[:2], expected)
+
+  def test_create_guards(self):
+      expected = ['1291', '773', '863', '3191', '2791', '2749', '2539', '3257', '269', '3557', '1237', '2251', '631', '1367', '677', '433', '3041', '449', '1873', '2699', '1171', '3019', '239']
+      self.assertEqual(list(aoc4.create_guards().keys()), expected)
 
 
 if __name__ == '__main__':
