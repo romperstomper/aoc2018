@@ -1,26 +1,19 @@
 from datetime import datetime
 import re
-import pdb
-from collections import defaultdict
+
 
 def readinput():
-    with open('input') as fd:
+    with open('small') as fd:
         data = fd.read().splitlines()
-    data.sort(key=lambda x: datetime.strptime(x[1:17], '%Y-%m-%d %H:%M'))
     return data
 
 
-def create_guards():
-    guards = {}
-    lines = readinput()
-    for line in lines:
-        match = re.search(r'Guard #(\d+)', line)
-        if match:
-            if match.group(1) in guards:
-                continue
-            else:
-                guards[match.group(1)] = {k:0 for k in range(60)}
-    return guards
+def sort_data():
+    '[1518-11-01 00:00] Guard #10 begins shift'
+    data = [(datetime.strptime(x[1:17], '%Y-%m-%d %H:%M'), x[18:]) for x in readinput()]
+    data.sort()    
+    return data
 
-#print(count())
-print(create_guards().keys())
+
+
+

@@ -1,18 +1,30 @@
-import aoc4
 import unittest
+import aoc4
 
-class Testaoc4(unittest.TestCase):
-  def test1(self):
-    expected = [
-        '[1518-03-07 00:02] Guard #1291 begins shift', 
-        '[1518-03-07 00:19] falls asleep'
-        ]
-    self.assertEqual(aoc4.readinput()[:2], expected)
-
-  def test_create_guards(self):
-      expected = ['1291', '773', '863', '3191', '2791', '2749', '2539', '3257', '269', '3557', '1237', '2251', '631', '1367', '677', '433', '3041', '449', '1873', '2699', '1171', '3019', '239']
-      self.assertEqual(list(aoc4.create_guards().keys()), expected)
+class Test_aoc4(unittest.TestCase):
+    def test_sort_data(self):
+        expected = """        
+            [1518-11-01 00:00] Guard #10 begins shift
+            [1518-11-01 00:05] falls asleep
+            [1518-11-01 00:25] wakes up
+            [1518-11-01 00:30] falls asleep
+            [1518-11-01 00:55] wakes up
+            [1518-11-01 23:58] Guard #99 begins shift
+            [1518-11-02 00:40] falls asleep
+            [1518-11-02 00:50] wakes up
+            [1518-11-03 00:05] Guard #10 begins shift
+            [1518-11-03 00:24] falls asleep
+            [1518-11-03 00:29] wakes up
+            [1518-11-04 00:02] Guard #99 begins shift
+            [1518-11-04 00:36] falls asleep
+            [1518-11-04 00:46] wakes up
+            [1518-11-05 00:03] Guard #99 begins shift
+            [1518-11-05 00:45] falls asleep
+            [1518-11-05 00:55] wakes up
+            """
+        result = aoc4.sort_data()
+        self.assertTrue(result, expected)
 
 
 if __name__ == '__main__':
-  unittest.main()
+    unittest.main()
