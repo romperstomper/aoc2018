@@ -2,6 +2,7 @@ from datetime import datetime
 from collections import defaultdict
 import re
 import pdb
+import operator
 
 def readinput():
     with open('small') as fd:
@@ -23,21 +24,25 @@ def roster():
         if 'falls' in line:
             date = str(time.strftime('%Y-%m-%d'))
             falls = time.minute
-            guards[guard][date] = {k:0 for k in range(60)}
+            if date not in guards[guard]:
+                guards[guard][date] = {k:0 for k in range(60)}
         if 'wakes' in line:
             for i in range(falls, time.minute):
                 guards[guard][date][i]=+1 
     return guards
 
 def totalminutes():
-    shift10 = roster()[10]
     # pdb.set_trace()
-    result = 0
-    for i in shift10:
-        print(i)
-        result += sum(shift10[i][y] for y in shift10[i])
-        print(result)
-    print(result)
+    theroster = roster()
+    result = {}
+    subresult = 0
+    for guard in theroster:
+        for i in theroster[guard]:
+            subresult += sum(theroster[guard][i][y] for y in theroster[guard][i])
+            result[guard]= subresult
+        subresult = 0
+        
+    print(max(result.items(), key=operator.itemgetter(1))[0])
 
 
 totalminutes()
