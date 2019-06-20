@@ -5,7 +5,7 @@ import pdb
 import operator
 
 def readinput():
-    with open('small') as fd:
+    with open('input') as fd:
         data = fd.read().splitlines()
     return data
 
@@ -41,9 +41,23 @@ def totalminutes():
             subresult += sum(theroster[guard][i][y] for y in theroster[guard][i])
             result[guard]= subresult
         subresult = 0
-        
-    print(max(result.items(), key=operator.itemgetter(1))[0])
+    return result
+
+def sleepiestguard():
+    result = totalminutes()
+    return max(result.items(), key=operator.itemgetter(1))[0]
+
+def mostminutes():
+    sleepy = sleepiestguard()
+    theroster = roster()
+    k, v = theroster[sleepy].popitem()
+    total = {k:v}
+    for date in theroster[sleepy]:
+        #pdb.set_trace()
+        for i in theroster[sleepy][date]:
+            total[k][i] += theroster[sleepy][date][i]
+    return max(total[k].items(), key=operator.itemgetter(1))[0]*sleepy
 
 
-totalminutes()
+print(mostminutes())
 
