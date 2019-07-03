@@ -22,6 +22,7 @@ def roster():
         match = re.search('Guard #(\d+)', line)
         guard = int(match.group(1)) if match else guard
         if 'falls' in line:
+            #print('269 asleep at {}'.format(time))
             date = str(time.strftime('%Y-%m-%d'))
             falls = time.minute
             if date not in guards[guard]:
@@ -32,7 +33,6 @@ def roster():
     return guards
 
 def totalminutes():
-    # pdb.set_trace()
     theroster = roster()
     result = {}
     subresult = 0
@@ -42,6 +42,26 @@ def totalminutes():
             result[guard]= subresult
         subresult = 0
     return result
+
+def mostminutesasleep():
+    maxmin = 0
+    maxtimes = 0
+    maxguard = 0
+    ros = roster()
+    result = {}
+    for guard in ros:
+        sub = {k:0 for k in range(60)}
+        for date in ros[guard]:
+            for min in ros[guard][date]:
+                sub[min] += ros[guard][date][min]
+        if max(sub.items(), key=operator.itemgetter(1))[1] >maxtimes:
+            maxmin = max(sub.items(), key=operator.itemgetter(1))[0]
+            maxtimes = max(sub.items(), key=operator.itemgetter(1))[1]
+            maxguard = guard
+        #print(guard, max(sub.items(), key=operator.itemgetter(1))[0],max(sub.items(), key=operator.itemgetter(1))[1])
+            
+    return maxguard, maxmin
+
 
 def sleepiestguard():
     result = totalminutes()
@@ -53,11 +73,13 @@ def mostminutes():
     k, v = theroster[sleepy].popitem()
     total = {k:v}
     for date in theroster[sleepy]:
-        #pdb.set_trace()
         for i in theroster[sleepy][date]:
             total[k][i] += theroster[sleepy][date][i]
     return max(total[k].items(), key=operator.itemgetter(1))[0]*sleepy
 
 
-print(mostminutes())
+#print(mostminutesasleep())
+#print(roster()[269]['1518-11-13'][42])
+#print(roster()[269].keys())
+print('guard {} x minute {} = {}'.format(*mostminutesasleep(), mostminutesasleep()[0] * mostminutesasleep()[1]))
 
