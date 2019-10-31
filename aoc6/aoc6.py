@@ -30,9 +30,20 @@ def walk():
         count[dists[0][1]] +=1
         if x == x0 or x==xn or y == y0 or y == yn:
           infinite.add(dists[0][1])
-walk()
 for k in infinite:
   count.pop(k)
+#part2
 
-print(max(count.values()))
       
+count = defaultdict(int)
+def walk2():
+  c = 0
+  for x in range(x0, xn+1):
+    for y in range(y0, yn+1):
+      dists = sorted((mandist((x,y), point), point) for point in data)
+      if sum(i for i,j in dists) < 10000:
+        c +=1
+        #pdb.set_trace()
+  return c
+
+print(walk2())
