@@ -1,5 +1,9 @@
 import pdb
 from collections import defaultdict
+def read():
+  with open('input') as fd:
+    data = fd.read()
+  return data
 def parse(input):
   lines =   [x.lstrip() for x in input.splitlines()]
   deps = defaultdict(set)
@@ -24,4 +28,4 @@ def parse(input):
 
   return ''.join(done)
 
-
+print(parse(read()))
