@@ -10,7 +10,7 @@ class TestAoc7(unittest.TestCase):
     Step B must be finished before step E can begin.
     Step D must be finished before step E can begin.
     Step F must be finished before step E can begin."""
-    expected = "CABDFE"
+ import   expected = "CABDFE"
 
     self.assertEqual(aoc7.parse(s), expected)
 
