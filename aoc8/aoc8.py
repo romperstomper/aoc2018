@@ -1,27 +1,33 @@
-class Header():
-    def __init__(self, childnum, metadatanum, childnodes, metadatas):
-        self.childnum = childnum
-        self.metadatanum = metadatanum
-        self.childnodes = childnodes
-        self.metadatas = metadatas
+import pdb
+from collections import namedtuple
+with open('input') as fd:
+    testinput = fd.read()
+testinput = iter([int(x) for x in testinput.split(' ')])
+print(testinput)
 
-first_header = Header(2, 3, [Header, Header], [1, 1, 2])
-second_header = Header(0, 3, [],[10,11,12]) 
-third_header = Header(0, 3, [], [2])
-fourth_header = Header(0, 3, [], [99])
-input = '2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2'.split(' ')
+def metatree(testinput):
+    try:
+        childnum, metadatanum = next(testinput), next(testinput)
+        #print('childnum: %s %s' % (childnum, metadatanum))
+        children = [metatree(testinput) for _ in range(childnum) if childnum]
+        metadata = [next(testinput) for _ in range(metadatanum) if metadatanum]
+    except StopIteration:
+        #print('input: %s' % list(testinput))
+        return
+    if children:
+        return children, sum(metadata)
+    else:
+        return sum(metadata)
+t=0
+def total(res):
+    global t
+    for x in res:
+        try:
+            total(x)
+        except TypeError:
+            print(x)
+            t+=x
+    return t
 
-def metatree(input):
-    input = map(int, iter(input))
-    childnum, metadatanum = next(input), next(input)
-    children = [metatree(input) for _ in range(childnum)]
-    metadatas = [next(input) for _ in range(metadatanum)]
-    return (children, metadatas)
-    
-total = 0
-print(metatree(input))
-#while True:
-#    try:
-#        print(metatree(input))
-#    except StopIteration:
-#        break
+result = metatree(testinput)
+print(total(result))
