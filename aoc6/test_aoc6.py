@@ -15,8 +15,8 @@ class Testaoc6(unittest.TestCase):
     self.assertEqual(aoc6.makepoints()[0].column, 336)
 
   def test_maxcolumns(self):
-    points = aoc6.makepoints(self.cords)
-    self.assertEqual(aoc6.maxcolumn(points).column, 8)
+    result = max(aoc6.makecords(self.cords))[0]
+    self.assertEqual(result, 8)
     
   def test_maxrows(self):
     result = max(self.cords, key=lambda item:item[1])[1]
