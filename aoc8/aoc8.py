@@ -1,33 +1,43 @@
-import pdb
-from collections import namedtuple
-with open('input') as fd:
-    testinput = fd.read()
-testinput = iter([int(x) for x in testinput.split(' ')])
-print(testinput)
+"""Module strings"""
 
-def metatree(testinput):
-    try:
-        childnum, metadatanum = next(testinput), next(testinput)
-        #print('childnum: %s %s' % (childnum, metadatanum))
-        children = [metatree(testinput) for _ in range(childnum) if childnum]
-        metadata = [next(testinput) for _ in range(metadatanum) if metadatanum]
-    except StopIteration:
-        #print('input: %s' % list(testinput))
-        return
-    if children:
-        return children, sum(metadata)
-    else:
-        return sum(metadata)
-t=0
-def total(res):
-    global t
-    for x in res:
+def myread():
+    """Module strings"""
+    with open('input') as f_d:
+        _testinput = f_d.read()
+        testinput = iter([int(x) for x in _testinput.split(' ')])
+    return testinput
+
+
+
+class Aoc8():
+    """class strings"""
+    def __init__(self):
+        """
+        strings mcdocstrings
+        """
+        self.tot = 0
+
+    def metatree(self, testinput):
+        """
+        strings mcdocstrings
+        """
         try:
-            total(x)
-        except TypeError:
-            print(x)
-            t+=x
-    return t
+            childnum, metadatanum = next(testinput), next(testinput)
+            children = [self.metatree(testinput) for _ in range(childnum) if childnum]
+            metadata = [next(testinput) for _ in range(metadatanum) if metadatanum]
+        except StopIteration:
+            return None
+        if children:
+            return children, sum(metadata)
+        return sum(metadata)
 
-result = metatree(testinput)
-print(total(result))
+    def total(self, res):
+        """
+        moar strings mcdocstrings
+        """
+        for elem in res:
+            try:
+                self.total(elem)
+            except TypeError:
+                self.tot += elem
+        return self.tot
